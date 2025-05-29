@@ -101,8 +101,7 @@
                 gridOptions,
             );
 
-            // https://www.ag-grid.com/example-assets/olympic-winners.json
-            fetch("olympic-winners.json")
+            fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
                 .then((response) => response.json())
                 .then((data) => gridApi.setGridOption("rowData", data));
         });
