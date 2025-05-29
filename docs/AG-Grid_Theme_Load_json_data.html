@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>JavaScript Example - Key Features - Custom Quartz Theme</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <style media="only screen">
+        :root,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        html {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            overflow: auto;
+            font-family: -apple-system, "system-ui", "Segoe UI", Roboto,
+                "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+                "Noto Color Emoji";
+        }
+
+        body {
+            padding: 16px;
+            overflow: auto;
+            background-color: transparent;
+        }
+
+        /* Hide codesandbox highlighter */
+        body>#highlighter {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="myGrid" style="height: 100%"></div>
+    <script>
+        (function () {
+            const appLocation = "";
+
+            window.__basePath = appLocation;
+        })();
+    </script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/ag-grid-community@33.3.1/dist/ag-grid-community.min.js?t=1748414205717"></script>
+    <script>
+        const myTheme = agGrid.themeQuartz.withParams({
+            /* Low spacing = very compact */
+            spacing: 2,
+            /* Changes the color of the grid text */
+            foregroundColor: "rgb(14, 68, 145)",
+            /* Changes the color of the grid background */
+            backgroundColor: "rgb(241, 247, 255)",
+            /* Changes the header color of the top row */
+            headerBackgroundColor: "rgb(228, 237, 250)",
+            /* Changes the hover color of the row*/
+            rowHoverColor: "rgb(216, 226, 255)",
+        });
+
+        const columnDefs = [
+            { field: "athlete", minWidth: 170 },
+            { field: "age" },
+            { field: "country" },
+            { field: "year" },
+            { field: "date" },
+            { field: "sport" },
+            { field: "gold" },
+            { field: "silver" },
+            { field: "bronze" },
+            { field: "total" },
+        ];
+
+        let gridApi;
+
+        const gridOptions = {
+            theme: myTheme,
+            rowData: null,
+            columnDefs: columnDefs,
+            defaultColDef: {
+                editable: true,
+                filter: true,
+            },
+        };
+
+        // setup the grid after the page has finished loading
+        document.addEventListener("DOMContentLoaded", function () {
+            const gridDiv = document.querySelector("#myGrid");
+            gridApi = agGrid.createGrid(
+                gridDiv,
+                gridOptions,
+            );
+
+            // https://www.ag-grid.com/example-assets/olympic-winners.json
+            fetch("olympic-winners.json")
+                .then((response) => response.json())
+                .then((data) => gridApi.setGridOption("rowData", data));
+        });
+
+    </script>
+</body>
+
+</html>

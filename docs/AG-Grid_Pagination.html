@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JavaScript Example - Key Features - Working With Data Example</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <style media="only screen">
+        :root,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        html {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            overflow: auto;
+            font-family: -apple-system, "system-ui", "Segoe UI", Roboto,
+                "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+                "Noto Color Emoji";
+        }
+
+        body {
+            padding: 16px;
+            overflow: auto;
+            background-color: transparent;
+        }
+
+        /* Hide codesandbox highlighter */
+        body>#highlighter {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="myGrid" style="height: 100%"></div>
+    <script>
+        (function () {
+            const appLocation = "";
+
+            window.__basePath = appLocation;
+        })();
+    </script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/ag-grid-community@33.3.1/dist/ag-grid-community.min.js?t=1748414205810"></script>
+    <script>
+        var gridApi;
+        const gridOptions = {
+            rowData: [
+                {
+                    make: "Tesla",
+                    model: "Model Y",
+                    price: 64950,
+                    electric: true,
+                    month: "June",
+                },
+                {
+                    make: "Ford",
+                    model: "F-Series",
+                    price: 33850,
+                    electric: false,
+                    month: "October",
+                },
+                {
+                    make: "Toyota",
+                    model: "Corolla",
+                    price: 29600,
+                    electric: false,
+                    month: "August",
+                },
+                {
+                    make: "Mercedes",
+                    model: "EQA",
+                    price: 48890,
+                    electric: true,
+                    month: "February",
+                },
+                {
+                    make: "Fiat",
+                    model: "500",
+                    price: 15774,
+                    electric: false,
+                    month: "January",
+                },
+                {
+                    make: "Nissan",
+                    model: "Juke",
+                    price: 20675,
+                    electric: false,
+                    month: "March",
+                },
+                {
+                    make: "Vauxhall",
+                    model: "Corsa",
+                    price: 18460,
+                    electric: false,
+                    month: "July",
+                },
+                {
+                    make: "Volvo",
+                    model: "EX30",
+                    price: 33795,
+                    electric: true,
+                    month: "September",
+                },
+                {
+                    make: "Mercedes",
+                    model: "Maybach",
+                    price: 175720,
+                    electric: false,
+                    month: "December",
+                },
+                {
+                    make: "Vauxhall",
+                    model: "Astra",
+                    price: 25795,
+                    electric: false,
+                    month: "April",
+                },
+                {
+                    make: "Fiat",
+                    model: "Panda",
+                    price: 13724,
+                    electric: false,
+                    month: "November",
+                },
+                {
+                    make: "Jaguar",
+                    model: "I-PACE",
+                    price: 69425,
+                    electric: true,
+                    month: "May",
+                },
+                {
+                    make: "Tesla",
+                    model: "Model Y",
+                    price: 64950,
+                    electric: true,
+                    month: "June",
+                },
+                {
+                    make: "Ford",
+                    model: "F-Series",
+                    price: 33850,
+                    electric: false,
+                    month: "October",
+                },
+                {
+                    make: "Toyota",
+                    model: "Corolla",
+                    price: 29600,
+                    electric: false,
+                    month: "August",
+                },
+                {
+                    make: "Mercedes",
+                    model: "EQA",
+                    price: 48890,
+                    electric: true,
+                    month: "February",
+                },
+                {
+                    make: "Fiat",
+                    model: "500",
+                    price: 15774,
+                    electric: false,
+                    month: "January",
+                },
+                {
+                    make: "Nissan",
+                    model: "Juke",
+                    price: 20675,
+                    electric: false,
+                    month: "March",
+                },
+                {
+                    make: "Vauxhall",
+                    model: "Corsa",
+                    price: 18460,
+                    electric: false,
+                    month: "July",
+                },
+                {
+                    make: "Volvo",
+                    model: "EX30",
+                    price: 33795,
+                    electric: true,
+                    month: "September",
+                },
+                {
+                    make: "Mercedes",
+                    model: "Maybach",
+                    price: 175720,
+                    electric: false,
+                    month: "December",
+                },
+                {
+                    make: "Vauxhall",
+                    model: "Astra",
+                    price: 25795,
+                    electric: false,
+                    month: "April",
+                },
+                {
+                    make: "Fiat",
+                    model: "Panda",
+                    price: 13724,
+                    electric: false,
+                    month: "November",
+                },
+                {
+                    make: "Jaguar",
+                    model: "I-PACE",
+                    price: 69425,
+                    electric: true,
+                    month: "May",
+                },
+                {
+                    make: "Tesla",
+                    model: "Model Y",
+                    price: 64950,
+                    electric: true,
+                    month: "June",
+                },
+                {
+                    make: "Ford",
+                    model: "F-Series",
+                    price: 33850,
+                    electric: false,
+                    month: "October",
+                },
+                {
+                    make: "Toyota",
+                    model: "Corolla",
+                    price: 29600,
+                    electric: false,
+                    month: "August",
+                },
+                {
+                    make: "Mercedes",
+                    model: "EQA",
+                    price: 48890,
+                    electric: true,
+                    month: "February",
+                },
+                {
+                    make: "Fiat",
+                    model: "500",
+                    price: 15774,
+                    electric: false,
+                    month: "January",
+                },
+                {
+                    make: "Nissan",
+                    model: "Juke",
+                    price: 20675,
+                    electric: false,
+                    month: "March",
+                },
+                {
+                    make: "Vauxhall",
+                    model: "Corsa",
+                    price: 18460,
+                    electric: false,
+                    month: "July",
+                },
+                {
+                    make: "Volvo",
+                    model: "EX30",
+                    price: 33795,
+                    electric: true,
+                    month: "September",
+                },
+                {
+                    make: "Mercedes",
+                    model: "Maybach",
+                    price: 175720,
+                    electric: false,
+                    month: "December",
+                },
+                {
+                    make: "Vauxhall",
+                    model: "Astra",
+                    price: 25795,
+                    electric: false,
+                    month: "April",
+                },
+                {
+                    make: "Fiat",
+                    model: "Panda",
+                    price: 13724,
+                    electric: false,
+                    month: "November",
+                },
+                {
+                    make: "Jaguar",
+                    model: "I-PACE",
+                    price: 69425,
+                    electric: true,
+                    month: "May",
+                },
+            ],
+            columnDefs: [
+                {
+                    field: "make",
+                    editable: true,
+                    cellEditor: "agSelectCellEditor",
+                    cellEditorParams: {
+                        values: [
+                            "Tesla",
+                            "Ford",
+                            "Toyota",
+                            "Mercedes",
+                            "Fiat",
+                            "Nissan",
+                            "Vauxhall",
+                            "Volvo",
+                            "Jaguar",
+                        ],
+                    },
+                },
+                { field: "model" },
+                { field: "price", filter: "agNumberColumnFilter" },
+                { field: "electric" },
+                {
+                    field: "month",
+                    comparator: (valueA, valueB) => {
+                        const months = [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November",
+                            "December",
+                        ];
+                        const idxA = months.indexOf(valueA);
+                        const idxB = months.indexOf(valueB);
+                        return idxA - idxB;
+                    },
+                },
+            ],
+            defaultColDef: {
+                filter: "agTextColumnFilter",
+                floatingFilter: true,
+            },
+            rowSelection: {
+                mode: "multiRow",
+                headerCheckbox: false,
+            },
+            pagination: true,
+            paginationPageSize: 10,
+            paginationPageSizeSelector: [10, 25, 50],
+        };
+
+        // setup the grid after the page has finished loading
+        document.addEventListener("DOMContentLoaded", function () {
+            const gridDiv = document.querySelector("#myGrid");
+            gridApi = agGrid.createGrid(
+                gridDiv,
+                gridOptions,
+            );
+        });
+
+    </script>
+</body>
+
+</html>
