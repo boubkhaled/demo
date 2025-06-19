@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML to JavaScript Converter</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Container for the input/output areas */
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Textarea styling */
+        textarea {
+            width: 100%;
+            height: 300px;
+            font-family: monospace;
+            padding: 10px;
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0069d9;
+        }
+
+        /* Output container with copy button */
+        .output-container {
+            position: relative;
+        }
+
+        /* Copy button positioning */
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Main header -->
+    <h1>HTML to JavaScript Converter</h1>
+
+    <!-- Input/output container -->
+    <div class="container">
+        <!-- HTML input section -->
+        <div class="input-container" style="flex: 1;">
+            <h2>HTML Input</h2>
+            <textarea id="htmlInput" placeholder="Paste your HTML here..."></textarea>
+        </div>
+
+        <!-- JavaScript output section -->
+        <div class="output-container" style="flex: 1;">
+            <h2>JavaScript Output</h2>
+            <textarea id="jsOutput" readonly placeholder="JavaScript output will appear here..."></textarea>
+            <button class="copy-btn" id="copyBtn">Copy</button>
+        </div>
+    </div>
+
+    <!-- Convert button -->
+    <button id="convertBtn">Convert to JavaScript</button>
+
+    <script>
+        // Global counter for text nodes
+        let textNodeCounter = 0;
+
+        // Get DOM elements
+        const convertButton = document.getElementById('convertBtn');
+        const copyButton = document.getElementById('copyBtn');
+        const htmlInputArea = document.getElementById('htmlInput');
+        const jsOutputArea = document.getElementById('jsOutput');
+
+        // Event listeners for buttons
+        convertButton.addEventListener('click', convertHtmlToJs);
+        copyButton.addEventListener('click', copyToClipboard);
+
+        // Main conversion function
+        function convertHtmlToJs() {
+            const inputHtml = htmlInputArea.value.trim();
+
+            // Reset counter for each new conversion
+            textNodeCounter = 0;
+
+            // Check for empty input
+            if (!inputHtml) {
+                alert('Please enter some HTML first');
+                return;
+            }
+
+            try {
+                // Parse HTML string into DOM
+                const htmlParser = new DOMParser();
+                const parsedDocument = htmlParser.parseFromString(inputHtml, 'text/html');
+                const rootElement = parsedDocument.body.firstChild;
+
+                // Validate we got an element
+                if (!rootElement) {
+                    throw new Error('No valid HTML element found');
+                }
+
+                // Generate and display JavaScript code
+                const generatedJsCode = generateJsCode(rootElement);
+                jsOutputArea.value = generatedJsCode;
+            } catch (error) {
+                jsOutputArea.value = `// Error: ${error.message}\n`;
+                console.error(error);
+            }
+        }
+
+        // Recursive function to generate JavaScript code for each node
+        function generateJsCode(currentNode, elementVariableName = 'parentElement') {
+            // Handle text nodes
+            if (currentNode.nodeType === Node.TEXT_NODE) {
+                const nodeTextContent = currentNode.textContent.trim();
+                if (!nodeTextContent) return '';
+
+                textNodeCounter++;
+                const currentTextNodeName = `textNode${textNodeCounter}`;
+                return `const ${currentTextNodeName} = document.createTextNode("${escapeString(nodeTextContent)}");\n\n`;
+            }
+
+            // Skip non-element nodes
+            if (currentNode.nodeType !== Node.ELEMENT_NODE) {
+                return '';
+            }
+
+            // Create element declaration
+            const elementTagName = currentNode.tagName.toLowerCase();
+            let generatedCode = `const ${elementVariableName} = document.createElement("${elementTagName}");\n\n`;
+
+            // Add attributes
+            for (let attribute of currentNode.attributes) {
+                generatedCode += `${elementVariableName}.setAttribute("${attribute.name}", "${escapeString(attribute.value)}");\n`;
+            }
+
+            // Special handling for class attribute
+            if (currentNode.classList.length > 0) {
+                generatedCode += `${elementVariableName}.className = "${escapeString(currentNode.className)}";\n`;
+            }
+
+            // Process child nodes
+            let childCounter = 0;
+            for (let childNode of currentNode.childNodes) {
+                // Skip empty text nodes
+                if (childNode.nodeType === Node.TEXT_NODE && !childNode.textContent.trim()) {
+                    continue;
+                }
+
+                // Generate code for each child
+                const childElementName = `${elementVariableName}Child${++childCounter}`;
+                generatedCode += generateJsCode(childNode, childNode.nodeType === Node.TEXT_NODE ? `textNode${textNodeCounter + 1}` : childElementName);
+
+                // Append child to parent
+                const childVarName = childNode.nodeType === Node.TEXT_NODE ? `textNode${textNodeCounter}` : childElementName;
+                generatedCode += `\n${elementVariableName}.appendChild(${childVarName});\n\n`;
+            }
+
+            return generatedCode;
+        }
+
+        // Helper function to escape string values
+        function escapeString(inputString) {
+            return inputString.replace(/"/g, '\\"')
+                .replace(/\n/g, '\\n')
+                .replace(/\r/g, '\\r');
+        }
+
+        // Copy output to clipboard
+        function copyToClipboard() {
+            jsOutputArea.select();
+            document.execCommand('copy');
+
+            // Provide visual feedback
+            const originalButtonText = copyButton.textContent;
+            copyButton.textContent = 'Copied!';
+
+            setTimeout(() => {
+                copyButton.textContent = originalButtonText;
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

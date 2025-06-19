@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Inventory</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- AG Grid CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@30.0.0/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@30.0.0/styles/ag-theme-alpine.css">
+    
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .ag-theme-alpine {
+            --ag-grid-size: 8px;
+            --ag-list-item-height: 30px;
+            --ag-font-size: 14px;
+            height: 600px;
+            width: 100%;
+        }
+        .header {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .grid-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="header">
+            <h1 class="display-5">Product Inventory</h1>
+            <p class="lead">Manage your product catalog with this interactive grid</p>
+        </div>
+        
+        <div class="grid-container">
+            <div id="myGrid" class="ag-theme-alpine"></div>
+        </div>
+        
+        <div class="mt-4 text-muted small">
+            <p>Data last updated: <span id="updateDate"></span></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AG Grid Library -->
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@30.0.0/dist/ag-grid-community.min.js"></script>
+    
+    <script>
+        // Sample product data
+        const productData = [
+            { id: 1, name: 'Wireless Headphones', category: 'Electronics', price: 99.99, stock: 45, rating: 4.5, discontinued: false },
+            { id: 2, name: 'Organic Cotton T-Shirt', category: 'Apparel', price: 24.95, stock: 120, rating: 4.2, discontinued: false },
+            { id: 3, name: 'Stainless Steel Water Bottle', category: 'Accessories', price: 19.99, stock: 78, rating: 4.7, discontinued: false },
+            { id: 4, name: 'Bluetooth Speaker', category: 'Electronics', price: 79.50, stock: 32, rating: 4.3, discontinued: false },
+            { id: 5, name: 'Yoga Mat', category: 'Fitness', price: 29.99, stock: 56, rating: 4.8, discontinued: false },
+            { id: 6, name: 'Desk Lamp', category: 'Home', price: 45.00, stock: 24, rating: 4.1, discontinued: false },
+            { id: 7, name: 'Leather Wallet', category: 'Accessories', price: 34.95, stock: 63, rating: 4.4, discontinued: false },
+            { id: 8, name: 'Smart Watch', category: 'Electronics', price: 199.99, stock: 18, rating: 4.6, discontinued: false },
+            { id: 9, name: 'Running Shoes', category: 'Footwear', price: 89.95, stock: 42, rating: 4.9, discontinued: false },
+            { id: 10, name: 'Coffee Maker', category: 'Home', price: 59.99, stock: 15, rating: 4.0, discontinued: false },
+            { id: 11, name: 'Backpack', category: 'Accessories', price: 49.99, stock: 37, rating: 4.5, discontinued: false },
+            { id: 12, name: 'Fitness Tracker', category: 'Electronics', price: 69.95, stock: 29, rating: 4.3, discontinued: false }
+        ];
+
+        // Column Definitions
+        const columnDefs = [
+            { 
+                headerName: "ID", 
+                field: "id", 
+                width: 80,
+                sortable: true,
+                filter: 'agNumberColumnFilter'
+            },
+            { 
+                headerName: "Product Name", 
+                field: "name", 
+                sortable: true,
+                filter: 'agTextColumnFilter',
+                flex: 2
+            },
+            { 
+                headerName: "Category", 
+                field: "category", 
+                sortable: true,
+                filter: 'agTextColumnFilter',
+                width: 150
+            },
+            { 
+                headerName: "Price", 
+                field: "price", 
+                sortable: true,
+                filter: 'agNumberColumnFilter',
+                width: 120,
+                valueFormatter: params => '$' + params.value.toFixed(2)
+            },
+            { 
+                headerName: "Stock", 
+                field: "stock", 
+                sortable: true,
+                filter: 'agNumberColumnFilter',
+                width: 120,
+                cellStyle: params => {
+                    if (params.value < 20) {
+                        return { color: 'white', backgroundColor: '#dc3545' };
+                    } else if (params.value < 50) {
+                        return { color: 'white', backgroundColor: '#fd7e14' };
+                    }
+                    return null;
+                }
+            },
+            { 
+                headerName: "Rating", 
+                field: "rating", 
+                sortable: true,
+                filter: 'agNumberColumnFilter',
+                width: 120,
+                cellRenderer: params => {
+                    const stars = '★'.repeat(Math.floor(params.value)) + 
+                                 '☆'.repeat(5 - Math.floor(params.value));
+                    return `<span style="color: gold; font-size: 1.2em;">${stars}</span> ${params.value}`;
+                }
+            },
+            { 
+                headerName: "Status", 
+                field: "discontinued", 
+                width: 120,
+                cellRenderer: params => {
+                    return params.value ? 
+                        '<span class="badge bg-danger">Discontinued</span>' : 
+                        '<span class="badge bg-success">Active</span>';
+                }
+            }
+        ];
+
+        // Grid Options
+        const gridOptions = {
+            columnDefs: columnDefs,
+            rowData: productData,
+            pagination: true,
+            paginationPageSize: 10,
+            defaultColDef: {
+                resizable: true,
+                filter: true
+            },
+            animateRows: true,
+            enableCellTextSelection: true,
+            suppressCellFocus: true
+        };
+
+        // Setup the grid after the page has finished loading
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridDiv = document.querySelector('#myGrid');
+            new agGrid.Grid(gridDiv, gridOptions);
+            
+            // Set current date
+            document.getElementById('updateDate').textContent = new Date().toLocaleDateString();
+        });
+    </script>
+</body>
+</html>
