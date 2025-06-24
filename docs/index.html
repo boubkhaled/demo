@@ -1,384 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>JavaScript Example - Key Features - Working With Data Example</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&amp;display=swap"
-        rel="stylesheet" />
-    <style media="only screen">
-        :root,
-        body {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            box-sizing: border-box;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        html {
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: 0;
-            overflow: auto;
-            font-family: -apple-system, "system-ui", "Segoe UI", Roboto,
-                "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
-                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-                "Noto Color Emoji";
-        }
-
-        body {
-            padding: 16px;
-            overflow: auto;
-            background-color: transparent;
-        }
-
-        /* Hide codesandbox highlighter */
-        body>#highlighter {
-            display: none;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-<body>
-    <div id="myGrid" style="height: 100%"></div>
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex min-h-screen flex-col md:flex-row">
+        <!-- Mobile Top Bar -->
+        <div class="flex items-center justify-between md:hidden bg-white shadow px-4 py-3">
+            <div class="text-2xl font-bold text-blue-600">Admin</div>
+            <button id="sidebarToggle" class="text-blue-600 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 bg-white shadow-md flex flex-col fixed md:static inset-y-0 left-0 z-30 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out md:flex md:translate-x-0 md:relative md:h-auto h-full"
+            style="max-height:100vh;">
+            <div class="p-6 text-2xl font-bold text-blue-600 hidden md:block">Admin</div>
+            <nav class="flex-1 px-4 space-y-2">
+                <a href="#" class="block py-2 px-3 rounded hover:bg-blue-100 text-gray-700 font-medium">Dashboard</a>
+                <a href="#" class="block py-2 px-3 rounded hover:bg-blue-100 text-gray-700 font-medium">Users</a>
+                <a href="#" class="block py-2 px-3 rounded hover:bg-blue-100 text-gray-700 font-medium">Settings</a>
+            </nav>
+            <div class="p-4">
+                <button class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Logout</button>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-1 p-4 md:p-8 mt-16 md:mt-0">
+            <header class="flex items-center justify-between mb-8">
+                <h1 class="text-3xl font-semibold text-gray-800">Dashboard</h1>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-600">Admin User</span>
+                    <img src="https://i.pravatar.cc/40" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-blue-500">
+                </div>
+            </header>
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded shadow flex items-center">
+                    <div class="bg-blue-100 p-3 rounded-full mr-4">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">1,234</div>
+                        <div class="text-gray-500">Visits</div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded shadow flex items-center">
+                    <div class="bg-green-100 p-3 rounded-full mr-4">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">567</div>
+                        <div class="text-gray-500">Users</div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded shadow flex items-center">
+                    <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 8v4l3 3"></path>
+                            <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold">89</div>
+                        <div class="text-gray-500">Tasks</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Table -->
+            <div class="bg-white rounded shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Recent Users</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-left">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 border-b">Name</th>
+                                <th class="py-2 px-4 border-b">Email</th>
+                                <th class="py-2 px-4 border-b">Role</th>
+                                <th class="py-2 px-4 border-b">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4 border-b">Jane Doe</td>
+                                <td class="py-2 px-4 border-b">jane@example.com</td>
+                                <td class="py-2 px-4 border-b">Admin</td>
+                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-green-100 text-green-700 rounded">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">John Smith</td>
+                                <td class="py-2 px-4 border-b">john@example.com</td>
+                                <td class="py-2 px-4 border-b">Editor</td>
+                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">Alice Lee</td>
+                                <td class="py-2 px-4 border-b">alice@example.com</td>
+                                <td class="py-2 px-4 border-b">Viewer</td>
+                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-red-100 text-red-700 rounded">Inactive</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
     <script>
-        (function () {
-            const appLocation = "";
-
-            window.__basePath = appLocation;
-        })();
-    </script>
-    <script
-        src="https://cdn.jsdelivr.net/npm/ag-grid-community@33.3.1/dist/ag-grid-community.min.js?t=1748414205810"></script>
-    <script>
-        var gridApi;
-        const gridOptions = {
-            rowData: [
-                {
-                    make: "Tesla",
-                    model: "Model Y",
-                    price: 64950,
-                    electric: true,
-                    month: "June",
-                },
-                {
-                    make: "Ford",
-                    model: "F-Series",
-                    price: 33850,
-                    electric: false,
-                    month: "October",
-                },
-                {
-                    make: "Toyota",
-                    model: "Corolla",
-                    price: 29600,
-                    electric: false,
-                    month: "August",
-                },
-                {
-                    make: "Mercedes",
-                    model: "EQA",
-                    price: 48890,
-                    electric: true,
-                    month: "February",
-                },
-                {
-                    make: "Fiat",
-                    model: "500",
-                    price: 15774,
-                    electric: false,
-                    month: "January",
-                },
-                {
-                    make: "Nissan",
-                    model: "Juke",
-                    price: 20675,
-                    electric: false,
-                    month: "March",
-                },
-                {
-                    make: "Vauxhall",
-                    model: "Corsa",
-                    price: 18460,
-                    electric: false,
-                    month: "July",
-                },
-                {
-                    make: "Volvo",
-                    model: "EX30",
-                    price: 33795,
-                    electric: true,
-                    month: "September",
-                },
-                {
-                    make: "Mercedes",
-                    model: "Maybach",
-                    price: 175720,
-                    electric: false,
-                    month: "December",
-                },
-                {
-                    make: "Vauxhall",
-                    model: "Astra",
-                    price: 25795,
-                    electric: false,
-                    month: "April",
-                },
-                {
-                    make: "Fiat",
-                    model: "Panda",
-                    price: 13724,
-                    electric: false,
-                    month: "November",
-                },
-                {
-                    make: "Jaguar",
-                    model: "I-PACE",
-                    price: 69425,
-                    electric: true,
-                    month: "May",
-                },
-                {
-                    make: "Tesla",
-                    model: "Model Y",
-                    price: 64950,
-                    electric: true,
-                    month: "June",
-                },
-                {
-                    make: "Ford",
-                    model: "F-Series",
-                    price: 33850,
-                    electric: false,
-                    month: "October",
-                },
-                {
-                    make: "Toyota",
-                    model: "Corolla",
-                    price: 29600,
-                    electric: false,
-                    month: "August",
-                },
-                {
-                    make: "Mercedes",
-                    model: "EQA",
-                    price: 48890,
-                    electric: true,
-                    month: "February",
-                },
-                {
-                    make: "Fiat",
-                    model: "500",
-                    price: 15774,
-                    electric: false,
-                    month: "January",
-                },
-                {
-                    make: "Nissan",
-                    model: "Juke",
-                    price: 20675,
-                    electric: false,
-                    month: "March",
-                },
-                {
-                    make: "Vauxhall",
-                    model: "Corsa",
-                    price: 18460,
-                    electric: false,
-                    month: "July",
-                },
-                {
-                    make: "Volvo",
-                    model: "EX30",
-                    price: 33795,
-                    electric: true,
-                    month: "September",
-                },
-                {
-                    make: "Mercedes",
-                    model: "Maybach",
-                    price: 175720,
-                    electric: false,
-                    month: "December",
-                },
-                {
-                    make: "Vauxhall",
-                    model: "Astra",
-                    price: 25795,
-                    electric: false,
-                    month: "April",
-                },
-                {
-                    make: "Fiat",
-                    model: "Panda",
-                    price: 13724,
-                    electric: false,
-                    month: "November",
-                },
-                {
-                    make: "Jaguar",
-                    model: "I-PACE",
-                    price: 69425,
-                    electric: true,
-                    month: "May",
-                },
-                {
-                    make: "Tesla",
-                    model: "Model Y",
-                    price: 64950,
-                    electric: true,
-                    month: "June",
-                },
-                {
-                    make: "Ford",
-                    model: "F-Series",
-                    price: 33850,
-                    electric: false,
-                    month: "October",
-                },
-                {
-                    make: "Toyota",
-                    model: "Corolla",
-                    price: 29600,
-                    electric: false,
-                    month: "August",
-                },
-                {
-                    make: "Mercedes",
-                    model: "EQA",
-                    price: 48890,
-                    electric: true,
-                    month: "February",
-                },
-                {
-                    make: "Fiat",
-                    model: "500",
-                    price: 15774,
-                    electric: false,
-                    month: "January",
-                },
-                {
-                    make: "Nissan",
-                    model: "Juke",
-                    price: 20675,
-                    electric: false,
-                    month: "March",
-                },
-                {
-                    make: "Vauxhall",
-                    model: "Corsa",
-                    price: 18460,
-                    electric: false,
-                    month: "July",
-                },
-                {
-                    make: "Volvo",
-                    model: "EX30",
-                    price: 33795,
-                    electric: true,
-                    month: "September",
-                },
-                {
-                    make: "Mercedes",
-                    model: "Maybach",
-                    price: 175720,
-                    electric: false,
-                    month: "December",
-                },
-                {
-                    make: "Vauxhall",
-                    model: "Astra",
-                    price: 25795,
-                    electric: false,
-                    month: "April",
-                },
-                {
-                    make: "Fiat",
-                    model: "Panda",
-                    price: 13724,
-                    electric: false,
-                    month: "November",
-                },
-                {
-                    make: "Jaguar",
-                    model: "I-PACE",
-                    price: 69425,
-                    electric: true,
-                    month: "May",
-                },
-            ],
-            columnDefs: [
-                {
-                    field: "make",
-                    editable: true,
-                    cellEditor: "agSelectCellEditor",
-                    cellEditorParams: {
-                        values: [
-                            "Tesla",
-                            "Ford",
-                            "Toyota",
-                            "Mercedes",
-                            "Fiat",
-                            "Nissan",
-                            "Vauxhall",
-                            "Volvo",
-                            "Jaguar",
-                        ],
-                    },
-                },
-                { field: "model" },
-                { field: "price", filter: "agNumberColumnFilter" },
-                { field: "electric" },
-                {
-                    field: "month",
-                    comparator: (valueA, valueB) => {
-                        const months = [
-                            "January",
-                            "February",
-                            "March",
-                            "April",
-                            "May",
-                            "June",
-                            "July",
-                            "August",
-                            "September",
-                            "October",
-                            "November",
-                            "December",
-                        ];
-                        const idxA = months.indexOf(valueA);
-                        const idxB = months.indexOf(valueB);
-                        return idxA - idxB;
-                    },
-                },
-            ],
-            defaultColDef: {
-                filter: "agTextColumnFilter",
-                floatingFilter: true,
-            },
-            rowSelection: {
-                mode: "multiRow",
-                headerCheckbox: false,
-            },
-            pagination: true,
-            paginationPageSize: 10,
-            paginationPageSizeSelector: [10, 25, 50],
+        // Simple content for each menu
+        const contents = {
+            dashboard: `
+                <header class="flex items-center justify-between mb-8">
+                    <h1 class="text-3xl font-semibold text-gray-800">Dashboard</h1>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-600">Admin User</span>
+                        <img src="https://i.pravatar.cc/40" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-blue-500">
+                    </div>
+                </header>
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded shadow flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold">1,234</div>
+                            <div class="text-gray-500">Visits</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded shadow flex items-center">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold">567</div>
+                            <div class="text-gray-500">Users</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded shadow flex items-center">
+                        <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 8v4l3 3"></path>
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold">89</div>
+                            <div class="text-gray-500">Tasks</div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            users: `
+                <h2 class="text-xl font-semibold mb-4">Recent Users</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-left">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 border-b">Name</th>
+                                <th class="py-2 px-4 border-b">Email</th>
+                                <th class="py-2 px-4 border-b">Role</th>
+                                <th class="py-2 px-4 border-b">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4 border-b">Jane Doe</td>
+                                <td class="py-2 px-4 border-b">jane@example.com</td>
+                                <td class="py-2 px-4 border-b">Admin</td>
+                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-green-100 text-green-700 rounded">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">John Smith</td>
+                                <td class="py-2 px-4 border-b">john@example.com</td>
+                                <td class="py-2 px-4 border-b">Editor</td>
+                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">Alice Lee</td>
+                                <td class="py-2 px-4 border-b">alice@example.com</td>
+                                <td class="py-2 px-4 border-b">Viewer</td>
+                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-red-100 text-red-700 rounded">Inactive</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `,
+            settings: `
+                <h2 class="text-xl font-semibold mb-4">Settings</h2>
+                <form class="space-y-4 max-w-md">
+                    <div>
+                        <label class="block text-gray-700 mb-1">Username</label>
+                        <input type="text" class="w-full border rounded px-3 py-2" value="Admin User">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Email</label>
+                        <input type="email" class="w-full border rounded px-3 py-2" value="admin@example.com">
+                    </div>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+                </form>
+            `
         };
 
-        // setup the grid after the page has finished loading
-        document.addEventListener("DOMContentLoaded", function () {
-            const gridDiv = document.querySelector("#myGrid");
-            gridApi = agGrid.createGrid(
-                gridDiv,
-                gridOptions,
-            );
+        // Get menu links and main content
+        const menuLinks = document.querySelectorAll('aside nav a');
+        const main = document.querySelector('main');
+
+        // Store original main content for dashboard
+        const originalMainContent = main.innerHTML;
+
+        menuLinks[0].addEventListener('click', function(e) {
+            e.preventDefault();
+            main.innerHTML = contents.dashboard;
+        });
+        menuLinks[1].addEventListener('click', function(e) {
+            e.preventDefault();
+            main.innerHTML = contents.users;
+        });
+        menuLinks[2].addEventListener('click', function(e) {
+            e.preventDefault();
+            main.innerHTML = contents.settings;
         });
 
+        // Logout button
+        document.querySelector('button').addEventListener('click', function() {
+            alert('You have been logged out.');
+            // Optionally, redirect or clear content
+            main.innerHTML = '<h2 class="text-2xl font-bold text-center mt-20">You are logged out.</h2>';
+        });
+
+        // Sidebar toggle for mobile
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+            }
+        });
     </script>
 </body>
-
 </html>
