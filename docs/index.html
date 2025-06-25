@@ -3,256 +3,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="flex min-h-screen flex-col md:flex-row">
-        <!-- Mobile Top Bar -->
-        <div class="flex items-center justify-between md:hidden bg-white shadow px-4 py-3">
-            <div class="text-2xl font-bold text-blue-600">Admin</div>
-            <button id="sidebarToggle" class="text-blue-600 focus:outline-none">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
-        </div>
-        <!-- Sidebar -->
-        <aside id="sidebar" class="w-64 bg-white shadow-md flex flex-col fixed md:static inset-y-0 left-0 z-30 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out md:flex md:translate-x-0 md:relative md:h-auto h-full"
-            style="max-height:100vh;">
-            <div class="p-6 text-2xl font-bold text-blue-600 hidden md:block">Admin</div>
-            <nav class="flex-1 px-4 space-y-2">
-                <a href="#" class="block py-2 px-3 rounded hover:bg-blue-100 text-gray-700 font-medium">Dashboard</a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-blue-100 text-gray-700 font-medium">Users</a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-blue-100 text-gray-700 font-medium">Settings</a>
-            </nav>
-            <div class="p-4">
-                <button class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Logout</button>
-            </div>
-        </aside>
-        <!-- Main Content -->
-        <main class="flex-1 p-4 md:p-8 mt-16 md:mt-0">
-            <header class="flex items-center justify-between mb-8">
-                <h1 class="text-3xl font-semibold text-gray-800">Dashboard</h1>
-                <div class="flex items-center space-x-4">
-                    <span class="text-gray-600">Admin User</span>
-                    <img src="https://i.pravatar.cc/40" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-blue-500">
-                </div>
-            </header>
-            <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white p-6 rounded shadow flex items-center">
-                    <div class="bg-blue-100 p-3 rounded-full mr-4">
-                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold">1,234</div>
-                        <div class="text-gray-500">Visits</div>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded shadow flex items-center">
-                    <div class="bg-green-100 p-3 rounded-full mr-4">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold">567</div>
-                        <div class="text-gray-500">Users</div>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded shadow flex items-center">
-                    <div class="bg-yellow-100 p-3 rounded-full mr-4">
-                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M12 8v4l3 3"></path>
-                            <circle cx="12" cy="12" r="10"></circle>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold">89</div>
-                        <div class="text-gray-500">Tasks</div>
-                    </div>
-                </div>
-            </div>
-            <!-- Table -->
-            <div class="bg-white rounded shadow p-6">
-                <h2 class="text-xl font-semibold mb-4">Recent Users</h2>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full text-left">
-                        <thead>
-                            <tr>
-                                <th class="py-2 px-4 border-b">Name</th>
-                                <th class="py-2 px-4 border-b">Email</th>
-                                <th class="py-2 px-4 border-b">Role</th>
-                                <th class="py-2 px-4 border-b">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="py-2 px-4 border-b">Jane Doe</td>
-                                <td class="py-2 px-4 border-b">jane@example.com</td>
-                                <td class="py-2 px-4 border-b">Admin</td>
-                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-green-100 text-green-700 rounded">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border-b">John Smith</td>
-                                <td class="py-2 px-4 border-b">john@example.com</td>
-                                <td class="py-2 px-4 border-b">Editor</td>
-                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border-b">Alice Lee</td>
-                                <td class="py-2 px-4 border-b">alice@example.com</td>
-                                <td class="py-2 px-4 border-b">Viewer</td>
-                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-red-100 text-red-700 rounded">Inactive</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
-    </div>
-    <script>
-        // Simple content for each menu
-        const contents = {
-            dashboard: `
-                <header class="flex items-center justify-between mb-8">
-                    <h1 class="text-3xl font-semibold text-gray-800">Dashboard</h1>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-gray-600">Admin User</span>
-                        <img src="https://i.pravatar.cc/40" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-blue-500">
-                    </div>
-                </header>
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white p-6 rounded shadow flex items-center">
-                        <div class="bg-blue-100 p-3 rounded-full mr-4">
-                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold">1,234</div>
-                            <div class="text-gray-500">Visits</div>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded shadow flex items-center">
-                        <div class="bg-green-100 p-3 rounded-full mr-4">
-                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                            </svg>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold">567</div>
-                            <div class="text-gray-500">Users</div>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded shadow flex items-center">
-                        <div class="bg-yellow-100 p-3 rounded-full mr-4">
-                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M12 8v4l3 3"></path>
-                                <circle cx="12" cy="12" r="10"></circle>
-                            </svg>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold">89</div>
-                            <div class="text-gray-500">Tasks</div>
-                        </div>
-                    </div>
-                </div>
-            `,
-            users: `
-                <h2 class="text-xl font-semibold mb-4">Recent Users</h2>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full text-left">
-                        <thead>
-                            <tr>
-                                <th class="py-2 px-4 border-b">Name</th>
-                                <th class="py-2 px-4 border-b">Email</th>
-                                <th class="py-2 px-4 border-b">Role</th>
-                                <th class="py-2 px-4 border-b">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="py-2 px-4 border-b">Jane Doe</td>
-                                <td class="py-2 px-4 border-b">jane@example.com</td>
-                                <td class="py-2 px-4 border-b">Admin</td>
-                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-green-100 text-green-700 rounded">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border-b">John Smith</td>
-                                <td class="py-2 px-4 border-b">john@example.com</td>
-                                <td class="py-2 px-4 border-b">Editor</td>
-                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border-b">Alice Lee</td>
-                                <td class="py-2 px-4 border-b">alice@example.com</td>
-                                <td class="py-2 px-4 border-b">Viewer</td>
-                                <td class="py-2 px-4 border-b"><span class="px-2 py-1 bg-red-100 text-red-700 rounded">Inactive</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            `,
-            settings: `
-                <h2 class="text-xl font-semibold mb-4">Settings</h2>
-                <form class="space-y-4 max-w-md">
-                    <div>
-                        <label class="block text-gray-700 mb-1">Username</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" value="Admin User">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-1">Email</label>
-                        <input type="email" class="w-full border rounded px-3 py-2" value="admin@example.com">
-                    </div>
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
-                </form>
-            `
-        };
+    <title>Interactive HTML Cheat Sheet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-        // Get menu links and main content
-        const menuLinks = document.querySelectorAll('aside nav a');
-        const main = document.querySelector('main');
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #e6e6e6;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
 
-        // Store original main content for dashboard
-        const originalMainContent = main.innerHTML;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-        menuLinks[0].addEventListener('click', function(e) {
-            e.preventDefault();
-            main.innerHTML = contents.dashboard;
-        });
-        menuLinks[1].addEventListener('click', function(e) {
-            e.preventDefault();
-            main.innerHTML = contents.users;
-        });
-        menuLinks[2].addEventListener('click', function(e) {
-            e.preventDefault();
-            main.innerHTML = contents.settings;
-        });
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            background: rgba(26, 26, 46, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
 
-        // Logout button
-        document.querySelector('button').addEventListener('click', function() {
-            alert('You have been logged out.');
-            // Optionally, redirect or clear content
-            main.innerHTML = '<h2 class="text-2xl font-bold text-center mt-20">You are logged out.</h2>';
-        });
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #556270);
+        }
 
-        // Sidebar toggle for mobile
-        document.getElementById('sidebarToggle').addEventListener('click', function() {
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                sidebar.classList.add('translate-x-0');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('translate-x-0');
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #4ecdc4, #ff6b6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 25px;
+            color: #a9a9c5;
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            padding-left: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4ecdc4;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: rgba(26, 26, 46, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            background: rgba(30, 30, 54, 0.8);
+        }
+
+        .category-card h3 {
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .category-card h3 i {
+            margin-right: 12px;
+            background: rgba(255, 107, 107, 0.1);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .tag-list {
+            list-style: none;
+        }
+
+        .tag-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .tag-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tag-name {
+            color: #4ecdc4;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .tag-name:hover {
+            background: rgba(78, 205, 196, 0.15);
+            transform: translateX(3px);
+            color: #ffb142;
+        }
+
+        .tag-desc {
+            color: #a9a9c5;
+            font-size: 0.95rem;
+        }
+
+        .cheatsheet {
+            background: rgba(26, 26, 46, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cheatsheet h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #ffb142;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(255, 107, 107, 0.2);
+            padding: 16px;
+            text-align: left;
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tag-example {
+            font-family: 'Courier New', monospace;
+            color: #ffb142;
+            background: rgba(255, 177, 66, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tag-example:hover {
+            background: rgba(255, 177, 66, 0.2);
+            color: #ff6b6b;
+        }
+
+        .tag-cell {
+            font-family: 'Courier New', monospace;
+            color: #4ecdc4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .tag-cell:hover {
+            background: rgba(78, 205, 196, 0.15);
+            color: #ffb142;
+        }
+
+        .click-hint {
+            display: block;
+            font-size: 0.8rem;
+            color: #ff6b6b;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            color: #a9a9c5;
+            font-size: 0.9rem;
+        }
+
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .instructions {
+            text-align: center;
+            margin: 15px 0;
+            color: #4ecdc4;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
             }
+            
+            .categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-card {
+                padding: 20px;
+            }
+            
+            .tag-list li {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-code"></i> Interactive HTML Cheat Sheet</h1>
+            <p class="subtitle">Click any HTML tag to view detailed documentation on MDN Web Docs</p>
+            
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search for tags or attributes...">
+            </div>
+            
+            <p class="instructions"><i class="fas fa-mouse-pointer"></i> Click any tag below to view MDN documentation</p>
+        </header>
+
+        <div class="categories">
+            <div class="category-card">
+                <h3><i class="fas fa-layer-group"></i> Document Structure</h3>
+                <ul class="tag-list">
+                    <li><span class="tag-name" data-tag="!DOCTYPE">&lt;!DOCTYPE&gt;</span> <span class="tag-desc">Defines document type</span></li>
+                    <li><span class="tag-name" data-tag="html">&lt;html&gt;</span> <span class="tag-desc">Root element</span></li>
+                    <li><span class="tag-name" data-tag="head">&lt;head&gt;</span> <span class="tag-desc">Contains metadata</span></li>
+                    <li><span class="tag-name" data-tag="title">&lt;title&gt;</span> <span class="tag-desc">Page title</span></li>
+                    <li><span class="tag-name" data-tag="body">&lt;body&gt;</span> <span class="tag-desc">Main content</span></li>
+                    <li><span class="tag-name" data-tag="meta">&lt;meta&gt;</span> <span class="tag-desc">Metadata about HTML</span></li>
+                    <li><span class="tag-name" data-tag="link">&lt;link&gt;</span> <span class="tag-desc">External resources</span></li>
+                </ul>
+            </div>
+            
+            <div class="category-card">
+                <h3><i class="fas fa-text-width"></i> Text Formatting</h3>
+                <ul class="tag-list">
+                    <li><span class="tag-name" data-tag="h1">&lt;h1&gt;-&lt;h6&gt;</span> <span class="tag-desc">Headings</span></li>
+                    <li><span class="tag-name" data-tag="p">&lt;p&gt;</span> <span class="tag-desc">Paragraph</span></li>
+                    <li><span class="tag-name" data-tag="strong">&lt;strong&gt;</span> <span class="tag-desc">Important text</span></li>
+                    <li><span class="tag-name" data-tag="em">&lt;em&gt;</span> <span class="tag-desc">Emphasized text</span></li>
+                    <li><span class="tag-name" data-tag="mark">&lt;mark&gt;</span> <span class="tag-desc">Highlighted text</span></li>
+                    <li><span class="tag-name" data-tag="small">&lt;small&gt;</span> <span class="tag-desc">Smaller text</span></li>
+                    <li><span class="tag-name" data-tag="blockquote">&lt;blockquote&gt;</span> <span class="tag-desc">Long quotation</span></li>
+                </ul>
+            </div>
+            
+            <div class="category-card">
+                <h3><i class="fas fa-link"></i> Links & Media</h3>
+                <ul class="tag-list">
+                    <li><span class="tag-name" data-tag="a">&lt;a&gt;</span> <span class="tag-desc">Hyperlink</span></li>
+                    <li><span class="tag-name" data-tag="img">&lt;img&gt;</span> <span class="tag-desc">Image</span></li>
+                    <li><span class="tag-name" data-tag="video">&lt;video&gt;</span> <span class="tag-desc">Video player</span></li>
+                    <li><span class="tag-name" data-tag="audio">&lt;audio&gt;</span> <span class="tag-desc">Sound content</span></li>
+                    <li><span class="tag-name" data-tag="source">&lt;source&gt;</span> <span class="tag-desc">Media resources</span></li>
+                    <li><span class="tag-name" data-tag="figure">&lt;figure&gt;</span> <span class="tag-desc">Self-contained content</span></li>
+                    <li><span class="tag-name" data-tag="figcaption">&lt;figcaption&gt;</span> <span class="tag-desc">Caption for figure</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="cheatsheet">
+            <h2><i class="fas fa-table"></i> Complete HTML Tags Reference</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tag</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="!DOCTYPE">&lt;!DOCTYPE html&gt;</span></td>
+                        <td>Defines the document type and HTML version</td>
+                        <td><span class="tag-example" data-tag="!DOCTYPE">&lt;!DOCTYPE html&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="html">&lt;html&gt;</span></td>
+                        <td>Root element of an HTML page</td>
+                        <td><span class="tag-example" data-tag="html">&lt;html lang="en"&gt;...&lt;/html&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="head">&lt;head&gt;</span></td>
+                        <td>Container for metadata and page title</td>
+                        <td><span class="tag-example" data-tag="head">&lt;head&gt;&lt;title&gt;Page&lt;/title&gt;&lt;/head&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="title">&lt;title&gt;</span></td>
+                        <td>Defines the title of the document</td>
+                        <td><span class="tag-example" data-tag="title">&lt;title&gt;My Page&lt;/title&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="body">&lt;body&gt;</span></td>
+                        <td>Contains the visible page content</td>
+                        <td><span class="tag-example" data-tag="body">&lt;body&gt;Content here&lt;/body&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="h1">&lt;h1&gt; to &lt;h6&gt;</span></td>
+                        <td>Defines HTML headings</td>
+                        <td><span class="tag-example" data-tag="h1">&lt;h1&gt;Main Heading&lt;/h1&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="p">&lt;p&gt;</span></td>
+                        <td>Defines a paragraph</td>
+                        <td><span class="tag-example" data-tag="p">&lt;p&gt;This is a paragraph.&lt;/p&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="a">&lt;a&gt;</span></td>
+                        <td>Defines a hyperlink</td>
+                        <td><span class="tag-example" data-tag="a">&lt;a href="url"&gt;Link&lt;/a&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="img">&lt;img&gt;</span></td>
+                        <td>Embeds an image</td>
+                        <td><span class="tag-example" data-tag="img">&lt;img src="img.jpg" alt="description"&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="div">&lt;div&gt;</span></td>
+                        <td>Defines a division or section</td>
+                        <td><span class="tag-example" data-tag="div">&lt;div&gt;Content section&lt;/div&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="span">&lt;span&gt;</span></td>
+                        <td>Inline container for text</td>
+                        <td><span class="tag-example" data-tag="span">&lt;span&gt;inline text&lt;/span&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tag-cell" data-tag="ul">&lt;ul&gt;</span>, 
+                            <span class="tag-cell" data-tag="ol">&lt;ol&gt;</span>, 
+                            <span class="tag-cell" data-tag="li">&lt;li&gt;</span>
+                        </td>
+                        <td>Defines unordered, ordered lists, and list items</td>
+                        <td><span class="tag-example" data-tag="ul">&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ul&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tag-cell" data-tag="table">&lt;table&gt;</span>, 
+                            <span class="tag-cell" data-tag="tr">&lt;tr&gt;</span>, 
+                            <span class="tag-cell" data-tag="td">&lt;td&gt;</span>
+                        </td>
+                        <td>Defines a table, table row, and table cell</td>
+                        <td><span class="tag-example" data-tag="table">&lt;table&gt;&lt;tr&gt;&lt;td&gt;Data&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="form">&lt;form&gt;</span></td>
+                        <td>Defines an HTML form for user input</td>
+                        <td><span class="tag-example" data-tag="form">&lt;form action="/submit"&gt;...&lt;/form&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="input">&lt;input&gt;</span></td>
+                        <td>Defines an input control</td>
+                        <td><span class="tag-example" data-tag="input">&lt;input type="text"&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="button">&lt;button&gt;</span></td>
+                        <td>Defines a clickable button</td>
+                        <td><span class="tag-example" data-tag="button">&lt;button&gt;Click Me&lt;/button&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="header">&lt;header&gt;</span></td>
+                        <td>Container for introductory content</td>
+                        <td><span class="tag-example" data-tag="header">&lt;header&gt;Logo and nav&lt;/header&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="footer">&lt;footer&gt;</span></td>
+                        <td>Defines a footer for a document</td>
+                        <td><span class="tag-example" data-tag="footer">&lt;footer&gt;Copyright info&lt;/footer&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="section">&lt;section&gt;</span></td>
+                        <td>Defines a section in a document</td>
+                        <td><span class="tag-example" data-tag="section">&lt;section&gt;Content group&lt;/section&gt;</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-cell" data-tag="article">&lt;article&gt;</span></td>
+                        <td>Defines independent, self-contained content</td>
+                        <td><span class="tag-example" data-tag="article">&lt;article&gt;Blog post&lt;/article&gt;</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="click-hint">Click any tag to view full documentation on MDN Web Docs</p>
+        </div>
+        
+        <footer>
+            <p>Interactive HTML Cheat Sheet | Created with <span class="highlight">HTML5</span>, <span class="highlight">CSS3</span> and <i class="fas fa-heart" style="color:#ff6b6b"></i></p>
+            <p>Powered by MDN Web Docs | All tags open documentation in new tabs</p>
+        </footer>
+    </div>
+
+    <script>
+        // Function to open MDN documentation
+        function openMDN(tag) {
+            // Special handling for doctype
+            const formattedTag = tag === '!DOCTYPE' ? 'DOCTYPE' : tag;
+            const url = `https://developer.mozilla.org/en-US/docs/Web/HTML/Element/${formattedTag}`;
+            window.open(url, '_blank');
+        }
+
+        // Add click events to all tag elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // For category card tags
+            document.querySelectorAll('.tag-name').forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const tagName = this.getAttribute('data-tag');
+                    openMDN(tagName);
+                });
+            });
+
+            // For table tags
+            document.querySelectorAll('.tag-cell, .tag-example').forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const tagName = this.getAttribute('data-tag');
+                    openMDN(tagName);
+                });
+            });
+            
+            // Search functionality
+            document.querySelector('.search-box input').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const cards = document.querySelectorAll('.category-card');
+                
+                cards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Hover effect for category cards
+            const cards = document.querySelectorAll('.category-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
         });
     </script>
 </body>
